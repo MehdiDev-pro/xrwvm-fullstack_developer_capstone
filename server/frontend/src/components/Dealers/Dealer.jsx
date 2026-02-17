@@ -20,8 +20,12 @@ const Dealer = () => {
   let root_url = curr_url.substring(0,curr_url.indexOf("dealer"));
   let params = useParams();
   let id =params.id;
-  let dealer_url = root_url+`djangoapp/dealer/${id}`;
-  let reviews_url = root_url+`djangoapp/reviews/dealer/${id}`;
+
+//   let dealer_url = `/djangoapp/dealer/${id}`;
+//   let reviews_url = `/djangoapp/reviews/dealer/${id}`;
+
+  let dealer_url = root_url+`dealer/${id}`;
+  let reviews_url = root_url+`reviews/dealer/${id}`;
   let post_review = root_url+`postreview/${id}`;
   
   const get_dealer = async ()=>{
@@ -59,6 +63,8 @@ const Dealer = () => {
   useEffect(() => {
     get_dealer();
     get_reviews();
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%", reviews)
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%", unreviewed)
     if(sessionStorage.getItem("username")) {
       setPostReview(<a href={post_review}><img src={review_icon} style={{width:'10%',marginLeft:'10px',marginTop:'10px'}} alt='Post Review'/></a>)
 
@@ -76,8 +82,8 @@ return(
       </div>
       <div class="reviews_panel">
       {reviews.length === 0 && unreviewed === false ? (
-        <text>Loading Reviews....</text>
-      ):  unreviewed === true? <div>No reviews yet! </div> :
+        <text>No reviews yet! </text>
+      ):  unreviewed === true? <div>Loading Reviews....</div> :
       reviews.map(review => (
         <div className='review_panel'>
           <img src={senti_icon(review.sentiment)} className="emotion_icon" alt='Sentiment'/>

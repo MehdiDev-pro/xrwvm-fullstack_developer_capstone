@@ -125,13 +125,26 @@ def get_dealer_details(request, dealer_id):
         return JsonResponse({"status":400,"message":"Bad Request"})
 
 # Create a `add_review` view to submit a review
+# def add_review(request):
+#     print("11111111111111111111", request.user)
+#     print("22222222222222222222", request.user.is_anonymous)
+#     if(request.user.is_anonymous == False):
+#         data = json.loads(request.body)
+#         try:
+#             response = post_review(data)
+#             return JsonResponse({"status":200})
+#         except:
+#             return JsonResponse({"status":401,"message":"Error in posting review"})
+#     else:
+#         print("u r fired!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+#         return JsonResponse({"status":403,"message":"Unauthorized"})
+
 def add_review(request):
-    if(request.user.is_anonymous == False):
-        data = json.loads(request.body)
-        try:
-            response = post_review(data)
-            return JsonResponse({"status":200})
-        except:
-            return JsonResponse({"status":401,"message":"Error in posting review"})
-    else:
-        return JsonResponse({"status":403,"message":"Unauthorized"})
+    data = json.loads(request.body)
+    try:
+        print("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT", data)
+        response = post_review(data)
+        print("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT", response)
+        return JsonResponse({"status":200})
+    except:
+        return JsonResponse({"status":401,"message":"Error in posting review"})

@@ -30,7 +30,10 @@ class CarModel(models.Model):
     
     year = models.IntegerField(
         default=2023,
-        her fields [ MaxValueValidator(2023), MinValueValidator(2015)],
+        her fields [
+            MaxValueValidator(2023),
+            MinValueValidator(2015),
+        ],
     
 
  

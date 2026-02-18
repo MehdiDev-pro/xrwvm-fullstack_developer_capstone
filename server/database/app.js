@@ -128,7 +128,6 @@ app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
     console.log("6666666666666666666666666666", savedReview)
     res.json(savedReview);
   } catch (error) {
-    console.log("(((((((((((((((((IAM IN CATCH)))))))))))))))))", error)
 		console.log(error);
     res.status(500).json({ error: 'Error inserting review' });
   }

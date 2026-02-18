@@ -23,7 +23,7 @@ def initiate():
         "name": "Pathfinder",
         "type": "SUV",
         "year": 2023,
-        "car_make": car_mi[0]
+        "car_make": car_mi[0],
       },
       {"name": "Qashqai", "type": "SUV", "year": 2023, "car_make": car_mi[0]},
       {"name": "XTRAIL", "type": "SUV", "year": 2023, "car_make": car_mi[0]},
@@ -36,11 +36,20 @@ def initiate():
       {"name": "Sorrento", "type": "SUV", "year": 2023, "car_make": car_mi[3]},
       {"name": "Carnival", "type": "SUV", "year": 2023, "car_make": car_mi[3]},
       {"name": "Cerato", "type": "Sedan", "year": 2023, "car_make": car_mi[3]},
-      {"name": "Corolla", "type": "Sedan", "year": 2023, "car_make": car_mi[4]},
+      {
+        "name": "Corolla",
+        "type": "Sedan",
+        "year": 2023,
+        "car_make": car_mi[4],
+      },
       {"name": "Camry", "type": "Sedan", "year": 2023, "car_make": car_mi[4]},
       {"name": "Kluger", "type": "SUV", "year": 2023, "car_make": car_mi[4]},
-        # Add more CarModel instances as needed
     ]
 
     for data in car_model_data:
-            CarModel.objects.create(name=data['name'], car_make=data['car_make'], type=data['type'], year=data['year'])
+        CarModel.objects.create(
+            name=data['name'],
+            car_make=data['car_make'],
+            type=data['type'],
+            year=data['year'],
+        )

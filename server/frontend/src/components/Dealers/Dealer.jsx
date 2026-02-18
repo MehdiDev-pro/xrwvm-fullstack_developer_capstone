@@ -24,20 +24,32 @@ const Dealer = () => {
 //   let dealer_url = `/djangoapp/dealer/${id}`;
 //   let reviews_url = `/djangoapp/reviews/dealer/${id}`;
 
-  let dealer_url = root_url+`dealer/${id}`;
-  let reviews_url = root_url+`reviews/dealer/${id}`;
+  let dealer_url = root_url+`djangoapp/dealer/${id}`;
+  let reviews_url = root_url+`djangoapp/reviews/dealer/${id}`;
   let post_review = root_url+`postreview/${id}`;
   
   const get_dealer = async ()=>{
     const res = await fetch(dealer_url, {
       method: "GET"
     });
+    console.log("KKKKKKKKKKKKKKKKKKKKKKKK", res, dealer_url)
     const retobj = await res.json();
+    console.log("KKKKKKKKKKKKKKKKKKKKKKKK", retobj)
     
+    // if(retobj.status === 200) {
+    //   let dealerobjs = Array.from(retobj.dealer)
+    //   setDealer(dealerobjs[0])
+    // }
+
     if(retobj.status === 200) {
-      let dealerobjs = Array.from(retobj.dealer)
-      setDealer(dealerobjs[0])
+        console.log("I AM HERE &&&&&&&&&&&&&&&&&&&&&&", dealer)
+        console.log("I AM HERE &&&&&&&&&&&&&&&&&&&&&&", retobj)
+        console.log("I AM HERE &&&&&&&&&&&&&&&&&&&&&&", retobj.status)
+        console.log("I AM HERE &&&&&&&&&&&&&&&&&&&&&&", retobj.status === 200)
+        setDealer(retobj.dealer)
+        console.log("I AM HERE &&&&&&&&&&&&&&&&&&&&&&", dealer)
     }
+    console.log("ADDED_______________________", dealer)
   }
 
   const get_reviews = async ()=>{
@@ -65,6 +77,7 @@ const Dealer = () => {
     get_reviews();
     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%", reviews)
     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%", unreviewed)
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$", dealer)
     if(sessionStorage.getItem("username")) {
       setPostReview(<a href={post_review}><img src={review_icon} style={{width:'10%',marginLeft:'10px',marginTop:'10px'}} alt='Post Review'/></a>)
 

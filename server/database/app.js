@@ -1,3 +1,4 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const fs = require('fs');
@@ -100,13 +101,9 @@ app.get('/fetchDealer/:id', async (req, res) => {
 
 //Express route to insert review
 app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
-  console.log("(((((((((((((((((IAM IN)))))))))))))))))")
   const data = JSON.parse(req.body);
-  console.log("111111111111111111111", data)
   const documents = await Reviews.find().sort( { id: -1 } )
-  console.log("22222222222222222222222222", documents)
-  let new_id = documents[0]['id']+1
-  console.log("33333333333333333333333333", new_id)
+  let new_id = documents[0]['id'] + 1
 
   const review = new Reviews({
 		"id": new_id,
@@ -120,74 +117,14 @@ app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
 		"car_year": data['car_year'],
 	});
 
-    console.log("555555555555555555555555555", review)
-
   try {
-    console.log("(((((((((((((((((IAM IN TRY)))))))))))))))))")
     const savedReview = await review.save();
-    console.log("6666666666666666666666666666", savedReview)
     res.json(savedReview);
   } catch (error) {
 		console.log(error);
     res.status(500).json({ error: 'Error inserting review' });
   }
 });
-
-// Express route to insert review
-// app.post('/insert_review', express.json(), async (req, res) => {
-//     console.log("(((((((((((((((((IAM IN)))))))))))))))))")
-//     try {
-//         console.log("(((((((((((((((((IAM IN TRY)))))))))))))))))")
-//         // Get data from req.body (express.json() parses it automatically)
-//         const data = req.body;
-//         console.log("111111111111111111111", data)
-//         // Handle empty collection case
-//         const documents = await Reviews.find().sort({ id: -1 }).limit(1);
-//         console.log("22222222222222222222222222", documents)
-//         let new_id = 1; // Default for empty collection
-//         console.log("33333333333333333333333333", new_id)
-//         if (documents.length > 0) {
-//         new_id = documents[0].id + 1;
-//         }
-        
-//         // Validate required fields
-//         if (!data.name || !data.review) {
-//         return res.status(400).json({ error: 'Name and review are required' });
-//         }
-//         console.log("444444444444444444444444444")
-        
-//         const review = new Reviews({
-//         "id": new_id,
-//         "name": data.name,
-//         "dealership": data.dealership || '', // Provide defaults for optional fields
-//         "review": data.review,
-//         "purchase": data.purchase || false,
-//         "purchase_date": data.purchase_date || null,
-//         "car_make": data.car_make || '',
-//         "car_model": data.car_model || '',
-//         "car_year": data.car_year || null,
-//         });
-
-//         console.log("555555555555555555555555555", review)
-
-//         const savedReview = await review.save();
-//         res.status(201).json(savedReview); // 201 Created is more appropriate
-
-//         console.log("6666666666666666666666666666", savedReview)
-        
-//     } catch (error) {
-//         console.log("(((((((((((((((((IAM IN CATCH)))))))))))))))))", error.message)
-//         console.error('Error inserting review:', error);
-        
-//         // Handle specific errors
-//         if (error.name === 'ValidationError') {
-//         return res.status(400).json({ error: error.message });
-//         }
-        
-//         res.status(500).json({ error: 'Error inserting review' });
-//     }
-// });
-
 
 
 // Start the Express server
